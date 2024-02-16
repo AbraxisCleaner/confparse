@@ -1,0 +1,47 @@
+---- Common Rules ----
+All configs are treated as linked list trees. 
+
+---- INI ----
+Ini sections are stored in cfg::Node's (eg: [some_section]).
+Key/value pairs are stored as cfg::Node's and linked via the owning section's 'first_attribute' value.
+Iterate over nodes and attributes like so:
+
+for (auto n = ctn->first; n != nullptr; n = n->next) {
+    for (auto a = n->first_attribute; a != nullptr; a = a->next) {
+        // Do something with 'a'.
+    }
+}
+
+---- XML ----
+XML nodes are stored in cfg::Node's. If an XML node has a string attached (eg: <some_node>some string value</some_node>) then it's string is stored in the Node's 'str' variable.
+
+XML nodes can have children. Each child can have *either* a string value *or* children, but not both.
+
+XML nodes can have a number of 'attributes' associated with them. These are stored as cfg::Node's starting at cfg::Node::first_attribute;
+Example attribute: <some_node an_attribute="-75"/>
+
+---- JSON ----
+JSON values are stored in cfg::Node's. If a JSON value is a key/value pair (eg: "some_value" : "some_string"), then it's name is stored in 'Node::name' and it's string is stored in Node::str.
+
+JSON values can have children.
+
+In JSON documents, nodes can be accessed as an 'array' (eg: "some_array" : [ "some_value", {...} ]).
+In this case, the Node's direct children have no names. An array child can be a node with children, it will simply not have a name or a str attached.
+
+Example of a completely valid JSON file:
+{
+    "node" : {
+        "c1" : "A child",
+        "c2" : {
+            "a nested child" : "3.14159"
+        },
+        "c3" : [
+            "John Carmack",
+            "Michael Abrash",
+            {
+                "foo" : "bar"
+            },
+            "Jon Ramero"
+        ]
+    }
+}

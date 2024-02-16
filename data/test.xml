@@ -1,0 +1,7 @@
+<some_node>
+    <a_child_node attrib1="Woohoo!" attrib2="3.422123"/>
+    <a_child_node attrib1="3.14159">This is a node's 'str' value.</a_child_node>
+</some_node>
+<a_second_root>
+    <bumblebee>   This is another test!   </bumblebee>
+</a_second_root>
