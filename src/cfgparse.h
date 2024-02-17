@@ -996,6 +996,7 @@ size_t PrintYaml( cfg::Container *ctn, char **dst ) {
 /// ---- Container ---- ///
 bool cfg::Container::Parse(char *source, size_t len, eFileType type) {
     g_curr_container = this;
+    cfg::Container *ctn = this;
 
     switch (type) {
         case eFileType_Ini: return ParseIni(this, source, len);
